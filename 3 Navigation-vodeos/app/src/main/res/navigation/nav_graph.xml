@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="learn.nbcc.navcomponent.MainFragment"
+        android:label="Bank of Erica">
+        <action
+            android:id="@+id/action_mainFragment_to_chooseRecipientFragment"
+            app:destination="@id/chooseRecipientFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_viewTransactionFragment"
+            app:destination="@id/viewTransactionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_viewBalanceFragment"
+            app:destination="@id/viewBalanceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseRecipientFragment"
+        android:name="learn.nbcc.navcomponent.ChooseRecipientFragment"
+        android:label="Send Money to:">
+        <action
+            android:id="@+id/action_chooseRecipientFragment_to_specifyAmountFragment"
+            app:destination="@id/specifyAmountFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmationFragment"
+        android:name="learn.nbcc.navcomponent.ConfirmationFragment"
+        android:label="Confirmation">
+        <argument
+            android:name="recepient"
+            app:argType="string" />
+        <argument
+            android:name="amount"
+            app:argType="learn.nbcc.navcomponent.Money" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewBalanceFragment"
+        android:name="learn.nbcc.navcomponent.ViewBalanceFragment"
+        android:label="Balance"
+        tools:layout="@layout/fragment_view_balance" />
+    <fragment
+        android:id="@+id/viewTransactionFragment"
+        android:name="learn.nbcc.navcomponent.ViewTransactionFragment"
+        android:label="Transactions"
+        tools:layout="@layout/fragment_view_transaction" />
+    <fragment
+        android:id="@+id/specifyAmountFragment"
+        android:name="learn.nbcc.navcomponent.SpecifyAmountFragment"
+        android:label="Amount">
+        <action
+            android:id="@+id/action_specifyAmountFragment_to_confirmationFragment"
+            app:destination="@id/confirmationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/mainFragment" />
+        <argument
+            android:name="recipient"
+            app:argType="string" />
+    </fragment>
+</navigation>
