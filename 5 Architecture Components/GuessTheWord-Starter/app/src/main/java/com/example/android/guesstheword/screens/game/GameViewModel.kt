@@ -19,18 +19,12 @@ class GameViewModel : ViewModel() {
     val score: LiveData<Int>
         get() = _score
 
+    private val _eventGameFinish = MutableLiveData<Boolean>()
+    val eventGameFinish: LiveData<Boolean>
+        get() = _eventGameFinish
 
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
-
-    init{
-        Timber.i("GameViewModel created.")
-        _word.value = ""
-        _score.value = 0
-        resetList()
-        nextWord()
-    }
-
 
     /**
      * Resets the list of words and randomizes the order
@@ -62,6 +56,19 @@ class GameViewModel : ViewModel() {
         wordList.shuffle()
     }
 
+    init{
+        Timber.i("GameViewModel created.")
+        _word.value = ""
+        _score.value = 0
+        resetList()
+        nextWord()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Timber.i("GameViewModel destroyed")
+    }
+
     /** Methods for buttons presses **/
 
     fun onSkip() {
@@ -74,16 +81,6 @@ class GameViewModel : ViewModel() {
         nextWord()
     }
 
-//    /**
-//     * Called when the game is finished
-//     */
-//    fun gameFinished() {
-//        Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
-//        val action = GameFragmentDirections.actionGameToScore()
-//        action.score = viewModel.score
-//        NavHostFragment.findNavController(this).navigate(action)
-//    }
-
     /**
      * Moves to the next word in the list
      */
@@ -94,8 +91,14 @@ class GameViewModel : ViewModel() {
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        Timber.i("GameViewModel destroyed")
+    /** Method for the game completed event **/
+
+    fun onGameFinish() {
+        _eventGameFinish.value = true
     }
+
+    fun onGameFinishComplete() {
+        _eventGameFinish.value = false
+    }
+
 }
